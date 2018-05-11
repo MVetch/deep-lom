@@ -1,0 +1,452 @@
+\section{Математическая модель процесса, оптимизация процесса, управление процессом}
+
+\subsection{Первичный обзор задачи}
+Рассматривается задача о распределении температур в системе валок-полоса в очаге деформации при горячей прокатке.
+
+Так как задача симметрична, можно рассматривать только верхнюю часть очага. Система представляется следующим образом: рассчитывается распределение температуры в стержне (верхняя часть – валок, нижняя - полоса), который со временем перемещается по области очага (рис. 3). Это позволяет упростить уравнение до одной пространственной переменной. Получается, что рассматривается функция $u(x, t)$. Где $x$ - единственная пространственная координата, а $t$ - это время, в течение которого стержень перемещается по области.
+
+Из-за круглой формы валка и также из-за того, что толщина полосы со временем изменяется, задача будет рассматриваться в полярных координатах. Тогда функция будет зависеть от расстояния от центра координат(радиуса) и от угла: $u(r, \varphi)$.
+
+\fig{4}{Схема очага деформации в полярных координатах}
+Условно, всю эту область можно разделить на 2 части. На рисунке они отделены друг от друга линией, обозначенной буквой $R$.
+
+\subsection{Непрерывная модель}
+
+Математическое моделирование процесса осуществляется в несколько этапов: сначала строятся дифференциальные модели, которые аппроксимируются конечно-разностными, затем
+для каждого очага деформации по входным усилиям адаптируются коэффициенты
+трения. Модели, полученные в результате такого ремоделирования (замены исходных моделей), используются для расчета искомых величин.
+
+Для начала рассмотрим геометрию процесса.
+
+Пусть $R$ - радиус валка, $h_b$ - толщина полосы на входе в очаг и $h_a$ - толщина полосы на выходе из очага, $\Delta h = h_b - h_a$ - разница толщин полосы, тогда
+
+длина очага (рис. 3 отрезок $DG$)
+$$L = \sqrt{\Delta h R - \frac{\Delta h^2}{4}};$$
+
+угол в полярных координатах между началом и концом очага, а также правая граница по координате $\varphi$ (рис. 3 $\angle CAB$)  
+$$\varphi_{max} = \arcsin\Bigl(\frac{L}{R}\Bigr);$$
+
+величина угла во второй части очага (рис. 3 $\angle CAD$) 
+$$\alpha = \arctan\Bigl(\frac{L}{R + \frac{h_a}{2}}\Bigr),$$ 
+тогда величина угла в первой части (рис. 3 $\angle DAB$) 
+$$\beta = \varphi_{max} - \alpha.$$
+
+В полярных координатах граница для радиуса будет меняться.
+$$
+r_{max}(\varphi) = 
+\begin{cases} 
+\cfrac{L}{\sin(\varphi_{max} - \varphi)} \text{, при } \varphi \in [0; \beta]
+ \\ 
+\cfrac{R + \frac{h_a}{2}}{\cos(\varphi_{max} - \varphi)} \text{, при } \varphi \in [\beta; \varphi_{max}].
+\end{cases} 
+$$
+
+Вся зона очага делится на 3 зоны (рис. 4). Зона отставания (по дуге СL), зона прилипания (по дуге LM) и зона опережения (по дуге MB). Возникают они потому что, полоса во время контакта имеет непостоянную скорость из-за изменения своей толщины и получается так, что в зоне отставания скорость вращения валка больше скорости проката полосы, а в зоне опережения наоборот, полоса достигает скорости, большей, чем скорость вращения валка. В зоне прилипания же есть единственная точка, в которой скорость валка и скорость полосы совпадают полностью. Опережение и отставание имеют большое значение при расчете непрерывных станов не только в отношении режимов обжатий и скоростей, но также при определении усилий и моментов прокатки, усилий натяжения полосы между клетями стана \cite{process_prokatki}.
+
+\fig{5}{Разделение на зоны}
+Нормальное напряжение $p_{contact}$ в очаге деформации рассчитывается по формуле 
+\begin{equation}
+p_{contact}(\varphi) = \min_{\varphi \in [0; \varphi_{max}]}{(p_{back}(\varphi); p_{forw}(\varphi))},
+\end{equation}
+
+где напряжения $p_{back}$ и $p_{forw}$ - нормальные напряжения в зоне отставания и опережения, соответственно, и удовлетворяют уравнениям равновесия Т.Кармана
+\begin{equation}
+dp_{back} = (K_c - \frac{\mu p_{back}}{\tan \varphi})\frac{dh}{h},
+\label{p_back}
+\end{equation}
+
+\begin{equation}
+dp_{forw} = (K_c + \frac{\mu p_{forw}}{\tan \varphi})\frac{dh}{h}.
+\label{p_forw}
+\end{equation}
+
+Здесь $K_c$ — сопротивление деформации полосы; $\mu$ - коэффициент трения; $\varphi$ — угол между касательной к поверхности валка и горизонтальной плоскостью; $h=h(\varphi)$ - функция, описывающая изменение толщины полосы в очаге. Для определения сопротивления деформации $K_c$ полосы используется формула
+\begin{equation}
+K_c = S \cdot \sigma_{\text{о.д.}} \cdot u_i^{a} \cdot (10 \cdot \varepsilon_i)^b \cdot \Bigl(\frac{T_i}{1000}\Bigr)^c;
+\label{K_c}
+\end{equation}
+
+где $S, a, b, c$ - постоянные, определяемые для каждой марки стали по результатам испытания на пластометре;
+
+$u_i$ - скорость деформации в клети на $i$-том очаге;
+
+$\varepsilon_i$ - относительное точечное обжатие на $i$-том очаге;
+
+$T_i$ - температура полосы на выходе из $i$-того очага.
+
+$\sigma_{\text{о.д.}}$ - базисное сопротивление деформации, определенное при параметрах $T = 1000^oC$, $\varepsilon = 0.1$, $u = 10 c^{-1}$ \cite{disser_pospelov}.
+
+Также существуют модели для расчетов параметров $S, a, b, c$ в зависимости от химического состава стали. Эти модели более точные, т.к. химический состав стали одной и той же марки может быть различным, а также потому что в справочных материалах может не быть значений этих коэффициентов для новых марок стали.
+
+Нам понадобится также информация о нейтральном сечении, то есть о точке с координатами $(R, \varphi^*)$ - пересечения решений уравнений (\ref{p_back}) и (\ref{p_forw}), и толщине $h_{neutr} = h (\varphi^*)$ в нейтральном сечении.
+
+Значение коэффициента трения $\mu$ для каждого очага деформации определяется обратным пересчетом по фактическому усилию прокатки. А именно, на каждом очаге задается начальное приближение $\mu_0$ для коэффициента трения. После расчета контактного напряжения $p_{contact}$ определяется расчетное усилие прокатки $F$ как
+суммарное давление по площади контакта:
+$$F=W \int^L_0 p_{contact}(\varphi)d\varphi,$$
+
+где $W$ — ширина полосы. Затем расчетное значение усилия сравнивается с фактическим, и коэффициент трения корректируется.
+
+Скорость относительного скольжения $\omega_{slip}$ поверхностей валка и полосы вычисляется по формуле 
+$$w_{slip}(\varphi) = \Bigl|V\cdot \Bigl(\frac{h_{neutr}}{h(\varphi)} - 1\Bigr)\Bigr|,$$
+ где $V$ — скорость полосы
+в очаге. 
+
+Касательные напряжения определяются выражением 
+\begin{equation}
+\tau_{cont}(\varphi) = \mu  p_{contact}(\varphi),
+\end{equation}
+а предел текучести
+\begin{equation}
+\tau_{yield}(\varphi) = \frac{K_c(\varphi)}{1.15 \cdot 2},
+\end{equation}
+
+Для расчета плотности теплового потока $q$, генерируемого трением в зоне контакта
+используется формула 
+\begin{equation}
+q(\varphi) = \tau(\varphi)\cdot \omega_{slip}(\varphi),
+\end{equation}
+
+где 
+$$
+\tau(\varphi) = 
+\begin{cases} 
+\min{(\tau_{cont}(\varphi);\tau_{yield}(\varphi))} \text{, при } \varphi \in [0; \varphi^*]
+ \\ 
+-\min{(\tau_{cont}(\varphi);\tau_{yield}(\varphi))} \text{, при } \varphi \in [\varphi^*; \varphi_{max}].
+\end{cases} 
+$$
+
+Прирост температуры полосы в сечении $\varphi$ от пластической деформации задается формулой 
+$$\Delta T_{def} = \frac{\eta}{c_S \rho_S} K_c \ln \frac{h(\varphi)}{h(\varphi - \Delta \varphi)},$$ 
+где $\eta$ = 0,85 — коэффициент выходного потока тепла от пластической деформации; $c_S$ — удельная теплоемкость полосы; $\rho_S$ — плотность полосы.
+
+Распределение температур подчиняется уравнению теплопроводности. Необходимо еще учитывать факт того, что при горячей прокатке на полосе прокатной стали образуется окалина. Таким образом, необходимо решить систему из трех уравнений (для валка, для окалины и для полосы) с краевыми условиями первого и второго рода.
+
+В общем виде уравнение для функции $u(r, t)$ выглядит следующим образом
+
+$$\frac{\partial u}{\partial t} - a \frac{\partial^2u}{\partial r^2} = f(r, t).$$
+
+Так как вместо времени мы рассматриваем угол, который в свою очередь зависит от времени, то уравнение примет вид
+
+$$\frac{\partial u}{\partial \varphi} \cdot \frac{\partial \varphi}{\partial t} - a \frac{\partial^2u}{\partial r^2} = f(r, t),$$
+где $\cfrac{\partial \varphi}{\partial t} = \omega$ - угловая скорость вращения валка.
+
+Таким образом наши уравнения будут представлены в следующем виде
+
+для валка
+\begin{equation}
+\frac{\partial u}{\partial \varphi} - a_{wr} \frac{\partial^2u}{\partial r^2} = 0, r \in [0; R], \varphi \in [0; \varphi_{max}],
+\label{difur_wr}
+\end{equation}
+$$u(0,\varphi)=C_1, r \in [0; R], \varphi \in [0; \varphi_{max}],$$
+$$u(r,0)=C_2(r), r \in [0; R],$$
+$$u(R,\varphi)=v(R,\varphi), \varphi \in [0; \varphi_{max}];$$
+
+для окалины
+\begin{equation}
+\frac{\partial w}{\partial \varphi} - a_{sc} \frac{\partial^2w}{\partial r^2} = 0, r \in [R; R+\delta_{sc}], \varphi \in [0; \varphi_{max}],
+\label{difur_sc}
+\end{equation}
+$$\lambda_{sc} \frac{\partial w}{\partial r}(R,\varphi) = \lambda_{wr} \frac{\partial u}{\partial r}(R,\varphi) - q(\varphi), \varphi \in [0; \varphi_{max}],$$
+$$\lambda_{sc} \frac{\partial w}{\partial r}(R+\delta_{sc},\varphi) = \lambda_{S} \frac{\partial v}{\partial r}(R+\delta_{sc},\varphi), \varphi \in [0; \varphi_{max}];$$
+
+для полосы
+\begin{equation}
+\frac{\partial v}{\partial \varphi} - a_S \frac{\partial^2v}{\partial r^2} = \frac{f(r, \varphi)}{\omega}, r \in [R+\delta_{sc}; r_{max}(\varphi)], \varphi \in [0; \varphi_{max}],
+\label{difur_S}
+\end{equation}
+$$v(r_{max}(\varphi), \varphi) = C_3(\varphi), \varphi \in [0; \beta],$$
+$$\frac{\partial v}{\partial r}(r_{max}(\varphi), \varphi) = 0, \varphi \in (\beta; \varphi_{max}].$$
+
+Здесь $a_k = \cfrac{\lambda_k}{\rho_k c_k}\cdot \omega $, $k \in \{sc, S, wr\}$ — коэффициенты температуропроводности окалины, стали полосы и валка соответственно, умноженные на угловую скорость вращения валка;
+
+$\omega$ — угловая скорость вращения валка;
+
+$\lambda_{k}$, $k \in \{sc, S, wr\}$ — коэффициенты теплопроводности;
+
+$\rho_k$, $k \in \{sc, S, wr\}$ — плотности материалов; 
+
+$c_k$, $k \in \{sc, S, wr\}$ — удельные теплоемкости;
+
+$\delta_{sc}$ — толщина окалины; 
+
+$C_1$ — температура в центре валка;
+
+$C_2(r)$, $C_3(\varphi)$ — распределение температур по глубине рабочего слоя валка и в полосе соответственно на входе в очаг деформации; 
+
+$q(\varphi)$ — плотность теплового потока от трения в зоне контакта.
+
+У полосы в уравнении в правой части появляется функция приращения температуры $f(r, \varphi)$. Это происходит именно из-за происходящей в процессе прокатки пластической деформации. Значение этой функции рассчитывается с помощью значения $\Delta T_{def}$.
+
+Необходимо также учитывать тот факт, что параметры $\lambda_k$ и $c_k$, $k \in \{wr, S, sc\}$, при больших температурах будут менять свои значения. В работе \cite{rachet_parametrov} представлены таблицы значения этих параметров при определенных температурах. С помощью полиномиальной аппроксимации можно получить непрерывную зависимость для каждой из марок стали.
+
+\subsection{Аппроксимационная модель}
+
+Для решения этой задачи программно необходимо было дискретизировать необходимую область, в которой мы рассматриваем функцию, а также вывести численные формулы для решения дифференциальных уравнений в частных производных.
+
+Рассматриваемую область превратим в сетку с шагом $h$ по $r$ и с шагом $\theta$ по $\varphi$.
+$$ \varphi_i = i \cdot \theta, i = 1, \cdots, N;$$
+$$ r_j = j \cdot h, j = 1, \cdots, M; $$
+Пусть $u^i_j = u(r_j, \varphi_i)$, $f^i_j = \cfrac{f(r_j, \varphi_i)}{\omega}$.
+
+Замена второй производной по $r$
+$$ u_{rr}^{\prime\prime} \approx \frac{u^i_{j+1} - 2u^i_{j} + u^i_{j-1}}{h^2}. $$
+
+Замена первой производной по $\varphi$ с помощью правой КРА
+$$ u_{\varphi}^\prime \approx \frac{u^{i+1}_{j} - u^i_{j}}{\theta}. $$
+
+Подставляя в уравнение (\ref{difur_wr}) получаем
+
+\begin{equation}
+\frac{u^{i+1}_{j} - u^i_{j}}{\theta} = a_{wr}\frac{u^i_{j+1} - 2u^i_{j} + u^i_{j-1}}{h^2}.
+\label{approx_wr}
+\end{equation}
+
+Получаем следующий шаблон
+\fig{1}{Шаблон схемы}
+
+Получилась неявная схема.
+
+Преобразуя выражение (\ref{approx_wr}), получим
+\begin{equation}
+-\frac{\theta a_{wr}}{h^2}u_{j-1}^{i+1} + \Bigl(1 + \frac{2\theta a_{wr}}{h^2}\Bigr)u_{j}^{i+1}-\frac{\theta a_{wr}}{h^2}u_{j+1}^{i+1} = u_{j}^{i}, j=1,\cdots,M_{cont}-1,
+\label{schema_rw}
+\end{equation}
+где $M_{cont}$ - точка контакта полосы и валка.
+
+Применяя такую же логику для уравнения (\ref{difur_S}), получим
+\begin{equation}
+-\frac{\theta a_S}{h^2}v_{j-1}^{i+1} + \Bigl(1 + \frac{2\theta a_S}{h^2}\Bigr)v_{j}^{i+1}-\frac{\theta a_S}{h^2}v_{j+1}^{i+1} = v_{j}^{i} + f_{j}^{i}, j=M_{cont}+2,\cdots, M-1.
+\label{schema_S}
+\end{equation}
+
+Так как ширина окалины очень маленькая ($\delta_{sc} \approx 25 \text{мкм}$), то для нее выделяется один слой при $j = M_{cont} + 1$.
+
+Для расчета значений $u_{M_{cont}}^{i+1} = w_{M_{cont}}^{i+1}$ и $v_{M_{cont} + 1}^{i+1} = w_{M_{cont} + 1}^{i+1}$ используем краевые условия уравнения (\ref{difur_sc})
+$$\lambda_{wr} \cdot \frac{u_{M_{cont}} - u_{M_{cont} - 1}}{h} - q = \lambda_{sc} \cdot \frac{w_{M_{cont} + 1} - w_{M_{cont}}}{\delta_{sc}}.$$
+отсюда получаем
+\begin{equation}
+u_{M_{cont}} = \beta_1 u_{M_{cont} - 1} + \beta_2 w_{M_{cont} + 1} + \dot q,
+\label{mcont}
+\end{equation}
+где 
+$\beta_1 = \cfrac{\cfrac{\lambda_{wr}}{h}}{\cfrac{\lambda_{wr}}{h} + \cfrac{\lambda_{sc}}{\delta_{sc}}}$, 
+$\beta_2 = \cfrac{
+					\cfrac{\lambda_{sc}}
+				 		  {\delta_{sc}}
+				 }
+				 {
+				 	\cfrac{\lambda_{wr}}
+				 		  {h} + 
+				  	\cfrac{\lambda_{sc}}
+				  	      {\delta_{sc}}
+			     }$, 
+$\dot q = \cfrac{q}
+				{
+					\cfrac{\lambda_{wr}}
+						  {h} + 
+					\cfrac{\lambda_{sc}}{\delta_{sc}}
+				}.$
+
+
+Для второго краевого условия делаем то же самое
+$$\lambda_{S} \cdot \frac{v_{M_{cont} + 2} - v_{M_{cont} + 1}}{h} = \lambda_{sc} \cdot \frac{w_{M_{cont} + 1} - w_{M_{cont}}}{\delta_{sc}},$$
+отсюда получаем
+\begin{equation}
+v_{M_{cont} + 1} = \beta_3 w_{M_{cont}} + \beta_4 v_{M_{cont} + 2},
+\label{mcont1}
+\end{equation}
+где $\beta_3 = \cfrac{\cfrac{\lambda_{sc}}{\delta_{sc}}}{\cfrac{\lambda_{sc}}{\delta_{sc}} + \cfrac{\lambda_{S}}{h}}$, $\beta_4 = \cfrac{\cfrac{\lambda_{S}}{h}}{\cfrac{\lambda_{sc}}{\delta_{sc}} + \cfrac{\lambda_{S}}{h}}.$
+
+Теперь подставим (\ref{mcont}) в (\ref{mcont1}) и наоборот, учитывая, что $u_{M_{cont}} = w_{M_{cont}}$ и $v_{M_{cont} + 1} = w_{M_{cont} + 1}$
+
+\begin{equation}
+u_{M_{cont}} = \frac{\beta_1}{1-\beta_2 \beta_3} u_{M_{cont} - 1} + \frac{\beta_2 \beta_4}{1-\beta_2 \beta_3} v_{M_{cont} + 2} + \dot q;
+\label{mcont_end}
+\end{equation}
+\begin{equation}
+v_{M_{cont} + 1} = \frac{\beta_1 \beta_3}{1-\beta_2 \beta_3} u_{M_{cont} - 1} + \frac{\beta_4}{1-\beta_2 \beta_3} v_{M_{cont} + 2} + \frac{\beta_3 \dot q}{1-\beta_2 \beta_3}.
+\label{mcont1_end}
+\end{equation}
+
+Осталось подставить (\ref{mcont_end}) в (\ref{schema_rw}) при $j = M_{cont} - 1$ и (\ref{mcont1_end}) в (\ref{schema_S}) при $j = M_{cont} + 2$. Получаем следующие соотношения
+$$
+-\frac{\theta a_{wr}}{h^2}u_{M_{cont} - 2}^{i+1} + \Bigl(1 + \frac{2\theta a_{wr}}{h^2}\Bigr)u_{M_{cont} - 1}^{i+1}-\frac{\theta a_{wr}}{h^2}u_{M_{cont}}^{i+1} = u_{M_{cont} - 1}^{i}, j = M_{cont} - 1
+$$
+
+\begin{multline}
+-\frac{\theta a_{wr}}{h^2}u_{M_{cont} - 2}^{i+1} + 
+\Bigl(1 + \frac{2\theta a_{wr}}{h^2}\Bigr)u_{M_{cont} - 1}^{i+1} - \\ 
+- \frac{\theta a_{wr}}{h^2}\Bigl(\frac{\beta_1}{1-\beta_2 \beta_3} u_{M_{cont} - 1}^{i+1} +
+\frac{\beta_2 \beta_4}{1-\beta_2 \beta_3} v_{M_{cont} + 2}^{i+1} + \dot q^{i+1}\Bigr) =
+u_{M_{cont} - 1}^{i}
+\notag
+\end{multline}
+\begin{multline}
+-\frac{\theta a_{wr}}{h^2}u_{M_{cont} - 2}^{i+1} + 
+\Bigl(1 + \frac{2\theta a_{wr}}{h^2}-\frac{\theta a_{wr} \beta_1}{h^2(1-\beta_2 \beta_3)}\Bigr)u_{M_{cont} - 1}^{i+1} - \\ 
+- \frac{\theta a_{wr}\beta_2 \beta_4}{h^2(1-\beta_2 \beta_3)}v_{M_{cont} + 2}^{i+1} =
+u_{M_{cont} - 1}^{i} + \frac{\theta a_{wr} \dot q^{i+1}}{h^2}
+\end{multline}
+
+$$
+-\frac{\theta a_S}{h^2}v_{M_{cont} + 1}^{i+1} + \Bigl(1 + \frac{2\theta a_S}{h^2}\Bigr)v_{M_{cont} + 2}^{i+1}-\frac{\theta a_S}{h^2}v_{M_{cont} + 3}^{i+1} = v_{M_{cont} + 2}^{i}, j = M_{cont} + 2
+$$
+
+\begin{multline}
+-\frac{\theta a_S\beta_1 \beta_3}{h^2(1-\beta_2 \beta_3)}u_{M_{cont} - 1}^{i+1} + 
+\Bigl(1 + \frac{2\theta a_S}{h^2}-\frac{\theta a_S \beta_4}{h^2(1-\beta_2 \beta_3)}\Bigr)v_{M_{cont} + 2}^{i+1} - \\ 
+-\frac{\theta a_S}{h^2} v_{M_{cont} + 3}^{i+1} =
+v_{M_{cont} + 2}^{i} + \theta f^i_{M_{cont} + 2} + \frac{\theta a_S \beta_3 \dot q^{i+1}}{h^2(1-\beta_2 \beta_3)}.
+\end{multline}
+
+Для расчета $(i+1)$-го слоя получилась СЛАУ относительно $u^{i+1}_j$ и $v^{i+1}_j$, $j = 1, \cdots, M_{cont} - 1, M_{cont} + 2, \cdots M - 1$.
+\begin{equation}
+Ax = b,
+\label{SLAU}
+\end{equation}
+где $A^{(M-3)\times (M-3)}$ - матрица коэффициентов перед значениями функций в правой части, $x$ - значения функции на $(i+1)$-м слое, $b$ - вектор из правых частей уравнений.
+
+$$ A = \begin{pmatrix}
+1 + \frac{2\theta a}{h^2} & 
+-\frac{\theta a}{h^2} & 
+0 & 
+\dots 
+&
+0&
+0\\
+
+-\frac{\theta a}{h^2} & 
+1 + \frac{2\theta a}{h^2} & 
+-\frac{\theta a}{h^2} & 
+\dots
+&
+0&
+0 \\
+
+\vdots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+
+\vdots & 
+-\frac{\theta a}{h^2} & 
+1 + \frac{2\theta a}{h^2}-\frac{\theta a \beta_1}{h^2(1-\beta_2 \beta_3)} & 
+- \frac{\theta a\beta_2 \beta_4}{h^2(1-\beta_2 \beta_3)} & 
+0 &
+\vdots \\
+
+\vdots & 
+0 &
+-\frac{\theta a\beta_1 \beta_3}{h^2(1-\beta_2 \beta_3)} & 
+1 + \frac{2\theta a}{h^2}-\frac{\theta a \beta_4}{h^2(1-\beta_2 \beta_3)} & 
+-\frac{\theta a}{h^2} & 
+\vdots \\
+
+\vdots & \ddots & \ddots & \ddots & \ddots & \vdots \\
+
+0 &
+\dots & 
+0 &
+-\frac{\theta a}{h^2} &
+1 + \frac{2\theta a}{h^2} & 
+-\frac{\theta a}{h^2}\\
+
+0 &
+\dots &
+\dots &
+\dots & 
+-\frac{\theta a}{h^2} & 
+1 + \frac{2\theta a}{h^2}
+\end{pmatrix};
+$$
+
+$$
+b =
+\begin{pmatrix} 
+u^i_1 + \cfrac{\theta a_{wr}}{h^2}C_1 \\ 
+u^i_2 \\
+\vdots \\
+u^i_j \\
+\vdots \\
+u^i_{M_{cont - 2}} \\
+u^i_{M_{cont - 1}} + \cfrac{\theta a_{wr} \dot q^{i+1}}{h^2} \\
+v_{M_{cont} + 2}^{i} + \theta f^i_{M_{cont} + 2} + \cfrac{\theta a_S \beta_3 \dot q^{i+1}}{h^2(1-\beta_2 \beta_3)} \\
+v_{M_{cont} + 3}^{i} + \theta f^i_{M_{cont} + 3} \\
+\vdots \\
+v^i_j + \theta f^i_j \\
+\vdots \\
+v^i_{M-2} + \theta f^i_{M-2} \\
+v^i_{M-1} + \theta f^i_{M-1} + \cfrac{\theta a_{S}}{h^2}C_3^{i+1} \\
+\end{pmatrix},
+$$
+при чем 
+$$
+A^{M-3}_{M-3} = \begin{cases}
+1 + \cfrac{2\theta a_S}{h^2} & \text{при } \varphi \in [0; \beta] \\ 
+1 + \cfrac{\theta a_S}{h^2} & \text{при } \varphi \in (\beta; \varphi_{max}] \\ 
+\end{cases},
+$$
+$$
+b_{M-3} = \begin{cases}
+v^i_{M-1} + \theta f^i_{M-1} + \cfrac{\theta a_{S}}{h^2}C_3^{i+1} & \text{при } \varphi \in [0; \beta] \\ 
+v^i_{M-1} + \theta f^i_{M-1} & \text{при } \varphi \in (\beta; \varphi_{max}] \\ 
+\end{cases},
+$$
+а также в матрице $A$ в первых $(M_{cont}-1)$ строках $a = a_{wr}$, а в остальных $a = a_S$.
+
+СЛАУ (\ref{SLAU}) решается методом прогонки \cite{raznost_schemes}, так как матрица $A$ - трехдиагональная. Метод выглядит следующим образом
+$$
+\begin{bmatrix}
+c_1 & d_1 & 0   & 0   & \cdots & 0 & 0 & 0 \\
+b_2 & c_2 & d_2 & 0   & \cdots & 0 & 0 & 0 \\
+0   & b_3 & c_3 & d_3 & \cdots & 0 & 0 & 0 \\
+\cdots   & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+0 & 0 & 0 & 0 & \cdots & b_{n-1} & c_{n-1} & d_{n-1} \\
+0 & 0 & 0 & 0 & \cdots & 0 & b_{n} & c_{n} \\
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+\vdots \\
+x_{n-1} \\
+x_{n} \\
+\end{bmatrix} = 
+\begin{bmatrix}
+r_1 \\
+r_2 \\
+r_3 \\
+\vdots \\
+r_{n-1} \\
+r_{n} \\
+\end{bmatrix}
+$$
+$$
+b_ix_{i-1}+c_ix_i+d_ix_{x+1}=r_i, i=1,\cdots, n;b_1=0, d_n=0.
+$$
+Пусть
+$$
+x_i = \delta_ix_{i+1}+\lambda_i,
+$$
+тогда
+$$
+x_{i-1} = \delta_{i-1}x_i+\lambda_{i-1},
+$$
+$$
+b_i\delta_{i-1}x_i+b_i\lambda_{i-1} + c_ix_i+d_ix_{i+1}=r_i,
+$$
+получаем
+$$
+x_i = -\frac{d_i}{c_i + b_i\delta_{i-1}}x_{i+1} + \frac{r_i - b_i\lambda_{i-1}}{c_i + b_i\delta_{i-1}}.
+$$
+Т.о., для всех $i=1, \cdots, n:$
+$$
+\delta_{i} = -\frac{d_i}{c_i + b_i\delta_{i-1}},
+$$
+$$
+\lambda_i = \frac{r_i - b_i\lambda_{i-1}}{c_i + b_i\delta_{i-1}},
+$$
+тогда
+$$
+x_n=\lambda_n = \frac{r_n - b_n\lambda_{n-1}}{c_n + b_n\delta_{n-1}}.
+$$
+
+\newpage

@@ -1,0 +1,121 @@
+%----------------------------------------------------------------------------------------
+%	DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass[a4paper, 14pt]{extarticle}
+\usepackage{Styles/style}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{Styles/Personal_data}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{longtable}
+\lstset{inputencoding=utf8,
+   extendedchars=false,
+   %         stringstyle=\usefont{T2A}{fcr}{b}{n},
+   language=C++, %Язык по умолчанию Code langugage
+   belowcaptionskip=5pt,
+   basicstyle=\usefont{T2A}{fcr}{m}{n}\footnotesize,                   % Code font, Examples: \footnotesize, \ttfamily
+   % keywordstyle=\color{OliveGreen},      % Keywords font ('*' = uppercase)
+   commentstyle=\color{gray},              % Comments font
+   keywordstyle=\usefont{T2A}{fcr}{b}{n},  % Keywords font ('*' = uppercase)
+   % commentstyle=\usefont{T2A}{fcr}{m}{sl},              % Comments font
+   numbers=left,                           % Line nums position
+   numberstyle=\tiny,                      % Line-numbers fonts
+   stepnumber=1,                           % Step between two line-numbers
+   numbersep=5pt,                          % How far are line-numbers from code
+   % backgroundcolor=\color{lightlightgray}, % Choose background color
+   frame=none,                             % A frame around the code
+   tabsize=2,                              % Default tab size
+   captionpos=b,                           % Caption-position = bottom
+   breaklines=true,                        % Automatic line breaking?
+   breakatwhitespace=true,                 % Automatic breaks only at whitespace?
+   showspaces=false,                       % Dont make spaces visible
+   showtabs=false,                         % Dont make tabls visible
+   columns=flexible,                       % Column format
+   morekeywords={__global__, __device__},  % CUDA specific keywords
+   keepspaces = true   %!!!! пробелы в комментариях
+}
+\newcommand{\fig}[2]{
+\begin{figure}[H]	
+	\begin{center}
+		\includegraphics[scale=1]{Images/#1.png}
+\caption{#2}
+	\label{#1}
+	\end{center}
+\end{figure}
+}
+\newcommand{\blockschema}[2]{
+\begin{figure}[H]	
+	\begin{center}
+		\includegraphics[width=\textwidth]{Images/#1.png}
+\caption{#2}
+	\label{#1}
+	\end{center}
+\end{figure}
+}
+
+
+\addbibresource{Bibliography/references.bib} % библиографическая база данных
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\include{title_software}  % если есть программа
+%\include{title_no_software} % если нет программы
+
+%----------------------------------------------------------------------------------------
+%	TASK
+%----------------------------------------------------------------------------------------
+
+\include{task}
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\include{abstract}
+
+%----------------------------------------------------------------------------------------
+%	CONTENTS
+%----------------------------------------------------------------------------------------
+
+\include{contents}
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\include{introduction}
+
+%----------------------------------------------------------------------------------------
+%	MAIN PART
+%----------------------------------------------------------------------------------------
+
+\include{work1}
+\include{work2}
+\include{work3}
+\include{work4}
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSION
+%----------------------------------------------------------------------------------------
+
+\include{conclusion}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\include{bibl}
+
+%----------------------------------------------------------------------------------------
+%	APPENDIX
+%----------------------------------------------------------------------------------------
+
+\include{appendix}
+
+\end{document} 

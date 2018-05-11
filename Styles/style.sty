@@ -1,0 +1,173 @@
+\RequirePackage{cmap}
+\usepackage[utf8]{inputenc}  %The Russian language
+%\usepackage[T2A]{fontenc}  %The Russian language
+\RequirePackage[english,russian]{babel}
+
+\usepackage{pscyr}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{cite}
+%\usepackage{ucs}
+\usepackage{csquotes}
+
+\usepackage{vmargin,indentfirst}
+
+\usepackage[multiple]{footmisc}
+\usepackage{hhline}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage[bottom=20mm]{geometry}
+
+\setpapersize{A4}
+\setmarginsrb{25mm}{20mm}{20mm}{15mm}{0pt}{0mm}{0pt}{7mm}
+\parindent=1.27cm
+\setlength{\parskip}{0cm}
+
+\usepackage{color}
+%\definecolor{darkgreen}{rgb}{0,.5,0}
+\usepackage[colorlinks, linkcolor=black, pagecolor=black, filecolor=black, citecolor=black, urlcolor=black]{hyperref}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{multirow} %объединение строк в таблицах
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{makecell}
+
+\graphicspath{{Images/}} % путь к рисункам
+
+%нумерация рисунков
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\theequation}{\arabic{equation}}
+%нумерация таблиц
+\renewcommand{\thetable}{\arabic{table}}
+% заменяем для рисунков ':' после номера рисунка на '.'
+%\captionsetup{labelsep=period}
+\addto\captionsrussian{ 
+\def\figurename{Рисунок} 
+}
+
+\usepackage{chngcntr}
+\usepackage[nooneline]{caption} 
+\captionsetup[table]{justification=centering, labelsep=endash}
+\captionsetup[figure]{justification=centering,labelsep=endash}
+
+\usepackage{enumitem}
+\setlist{nolistsep}
+\renewcommand\labelitemi{---} %длинное тире в маркере
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{citecolor=green, linkcolor=red, urlcolor=magenta, colorlinks=true}
+
+\makeatletter
+    \renewcommand{\l@section}{\@dottedtocline{1}{0.3cm}{0.5cm}}
+    \renewcommand{\thesection}{\arabic{section}}
+    \renewcommand{\section}{\@startsection{section}{1}{1.27cm}{-1ex}{1ex}{\raggedright\normalfont\bfseries}}
+\makeatother
+
+%Оформление подразделов
+\makeatletter
+    \renewcommand{\l@subsection}{\@dottedtocline{2}{0.8cm}{1cm}}
+    \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+    \renewcommand{\subsection}{\@startsection{subsection}{2}{1.27cm}{-1ex}{1ex}{\raggedright\normalfont}}
+\makeatother
+
+%Оформление под-подразделов
+\makeatletter
+    \renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+    \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{1.27cm}{-1ex}{1ex}{\raggedright\normalfont}}
+\makeatother
+
+\setcounter{tocdepth}{2}
+
+\makeatletter
+    \newcommand{\Section}[1]{
+         \refstepcounter{section}
+         \section*{\MakeTextUppercase{\arabic{section} #1}}
+    \addcontentsline{toc}{section}{\arabic{section} #1}
+    }
+\makeatother
+
+%%  Теорема
+\newtheorem{theorem}{\scshape Теорема}
+
+%%  Следствие
+\newtheorem{corollary}{\scshape Следствие}
+
+%%  Лемма
+\newtheorem{lemma}{\scshape Лемма}
+
+%%  Утверждение
+\newtheorem{statement}{\scshape Утверждение}
+
+%%  Предложение
+\newtheorem{proposition}{\scshape Предложение}
+
+%%  Алгоритм
+%\newtheorem{algorithm}{\scshape Алгоритм}
+
+%%  Определение
+\newtheorem{definition}{\scshape Определение}
+
+%%  Задача
+\newtheorem{problem}{\scshape Задача}
+
+%%  Доказательство теоремы
+\newenvironment{proofoftheorem}[1]
+{\vspace{0pt}\par{\textit%
+{\underline{Доказательство теоремы #1.} }}}%
+{\noindent\vspace{0pt}}
+
+%%  Доказательство следствия
+\newenvironment{proofofcorollary}[1]
+{\vspace{0pt}\par{\textit%
+{\underline{Доказательство следствия #1.} }}}%
+{\noindent\vspace{0pt}}
+
+%%  Доказательство леммы
+\newenvironment{proofoflemma}[1]
+{\vspace{0pt}\par{\textit%
+{\underline{Доказательство леммы #1.} }}}%
+{\noindent\vspace{0pt}}
+
+%%  Доказательство утверждения
+\newenvironment{proofofstatement}[1]
+{\vspace{0pt}\par{\textit%
+{\underline{Доказательство утверждения #1.} }}}%
+{\noindent\vspace{0pt}}
+
+%%  Доказательство предложения
+\newenvironment{proofofproposition}[1]
+{\vspace{0pt}\par{\textit%
+{\underline{Доказательство предложения #1.} }}}%
+{\noindent\vspace{0pt}}
+
+%%  Алгоритм
+\newtheorem{alg}{\scshape Алгоритм}%
+\newenvironment{algorithm}[1][\unskip]{\begin{alg}[#1]\em}{\end{alg}}%
+\def\thealgorithm{\thealg}
+
+%%  Замечание
+\newtheorem{rem}{\scshape Замечание}%
+\newenvironment{remark}[1][\unskip]{\begin{rem}[#1]\em}{\end{rem}}%
+\def\theremark{\therem}
+
+%%  Пример
+\newtheorem{exmpl}{\scshape Пример}%
+\newenvironment{example}[1][\unskip]{\begin{exmpl}[#1]\rm}{\protect$\bullet$\end{exmpl}}%
+\def\theexample{\theexmpl}
+
+\usepackage[
+            autolang=other,       
+            bibencoding=utf8,
+            sorting=none, % Name,Title,Year или sorting=none.
+            maxbibnames=4, % Максимальное число авторов в списке литературы.
+            minbibnames=4, % Число авторов, отображаемое при сокращении.
+            style=gost-numeric,
+            backend=biber]{biblatex}
+			
+\clubpenalty=10000
+\widowpenalty=10000
