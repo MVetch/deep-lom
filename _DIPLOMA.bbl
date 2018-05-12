@@ -1,0 +1,209 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{none/global/}
+    \entry{Tselikov}{book}{}
+      \name{author}{3}{}{%
+        {{hash=9314987404aa774356f8484a202b5b7e}{%
+           family={Целиков},
+           familyi={Ц\bibinitperiod},
+           given={А.И.},
+           giveni={А\bibinitperiod}}}%
+        {{hash=77d6250269cc9f9d720f616775d0470f}{%
+           family={Никитин},
+           familyi={Н\bibinitperiod},
+           given={Г.С.},
+           giveni={Г\bibinitperiod}}}%
+        {{hash=326b18087a45abd2234dd6805660faee}{%
+           family={Рокотян},
+           familyi={Р\bibinitperiod},
+           given={С.Е.},
+           giveni={С\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {russian}%
+      }
+      \list{location}{1}{%
+        {М.}%
+      }
+      \list{publisher}{1}{%
+        {Металлургия}%
+      }
+      \strng{namehash}{e7f26f9dbd139a05c30691a56e90ed63}
+      \strng{fullhash}{e7f26f9dbd139a05c30691a56e90ed63}
+      \strng{authornamehash}{e7f26f9dbd139a05c30691a56e90ed63}
+      \strng{authorfullhash}{e7f26f9dbd139a05c30691a56e90ed63}
+      \field{sortinit}{1}
+      \field{sortinithash}{27a2bc5dfb9ed0a0422134d636544b5d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pagetotal}{320}
+      \field{title}{Теория продольной прокатки}
+      \field{year}{1980}
+    \endentry
+    \entry{process_prokatki}{book}{useauthor=false}
+      \name{author}{4}{}{%
+        {{hash=cd49231533f2cd42e472294032c1cd62}{%
+           family={Зайков},
+           familyi={З\bibinitperiod},
+           given={М.А.},
+           giveni={М\bibinitperiod}}}%
+        {{hash=ba584eee5546902580a51060e380140a}{%
+           family={Полухин},
+           familyi={П\bibinitperiod},
+           given={В.П.},
+           giveni={В\bibinitperiod}}}%
+        {{hash=ef2c15bc6371608b4fe5862831276815}{%
+           family={Зайков},
+           familyi={З\bibinitperiod},
+           given={А.М.},
+           giveni={А\bibinitperiod}}}%
+        {{hash=01765d85a5d48d8353e8f7fc14e451fe}{%
+           family={Смирнов},
+           familyi={С\bibinitperiod},
+           given={Л.Н.},
+           giveni={Л\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {russian}%
+      }
+      \list{location}{1}{%
+        {М.}%
+      }
+      \list{publisher}{1}{%
+        {МИСиС}%
+      }
+      \strng{authornamehash}{feeb9aa42d62881e12e1884f80cade9f}
+      \strng{authorfullhash}{de1769419b9210296676d306dfae84cd}
+      \field{sortinit}{2}
+      \field{sortinithash}{0aa614ace9f3a40ef5a67e7f7a184048}
+      \field{labeltitlesource}{title}
+      \field{pagetotal}{640}
+      \field{title}{Процесс прокатки.}
+      \field{year}{2004}
+    \endentry
+    \entry{disser_pospelov}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=bf2b3c93f61a389a4a6b608c37a7d217}{%
+           family={Поспелов},
+           familyi={П\bibinitperiod},
+           given={И.Д.},
+           giveni={И\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Череповецкий Государственный Университет}%
+      }
+      \list{language}{1}{%
+        {russian}%
+      }
+      \list{location}{1}{%
+        {Череповец}%
+      }
+      \strng{namehash}{bf2b3c93f61a389a4a6b608c37a7d217}
+      \strng{fullhash}{bf2b3c93f61a389a4a6b608c37a7d217}
+      \strng{authornamehash}{bf2b3c93f61a389a4a6b608c37a7d217}
+      \strng{authorfullhash}{bf2b3c93f61a389a4a6b608c37a7d217}
+      \field{sortinit}{3}
+      \field{sortinithash}{197da6d6c34c6b20ce45c4d4baace5a4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pagetotal}{89}
+      \field{specialitycode}{05.16.05}
+      \field{title}{Совершенствование технологии производства горячекатаных широких полос с целью уменьшения их продольной разнотолщинности}
+      \field{type}{Диссертация на соискание ученой степени кандидата технических наук}
+      \field{year}{2014}
+    \endentry
+    \entry{rachet_parametrov}{book}{}
+      \name{author}{3}{}{%
+        {{hash=dd7042ad59a755e4c080a140dc71e7d0}{%
+           family={Коновалов},
+           familyi={К\bibinitperiod},
+           given={Ю.В.},
+           giveni={Ю\bibinitperiod}}}%
+        {{hash=a6b4c8be2ea7ff7c9c85fa638ed0d79f}{%
+           family={Остапенко},
+           familyi={О\bibinitperiod},
+           given={А.Л.},
+           giveni={А\bibinitperiod}}}%
+        {{hash=9aa99314b19b05e36d1a7d3d7f11beff}{%
+           family={Пономарёв},
+           familyi={П\bibinitperiod},
+           given={В.И.},
+           giveni={В\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {russian}%
+      }
+      \list{location}{1}{%
+        {М.}%
+      }
+      \list{publisher}{1}{%
+        {Металлургия}%
+      }
+      \strng{namehash}{9abfa3c16799b450e830fecf996d86fa}
+      \strng{fullhash}{9abfa3c16799b450e830fecf996d86fa}
+      \strng{authornamehash}{9abfa3c16799b450e830fecf996d86fa}
+      \strng{authorfullhash}{9abfa3c16799b450e830fecf996d86fa}
+      \field{sortinit}{4}
+      \field{sortinithash}{d221becdd544034cf9082056cd6e6d2d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pagetotal}{430}
+      \field{title}{Расчёт параметров листовой прокатки}
+      \field{year}{1986}
+    \endentry
+    \entry{raznost_schemes}{book}{}
+      \name{author}{2}{}{%
+        {{hash=96bfd8968d10077ba27dd38b775ac99e}{%
+           family={Кузнецов},
+           familyi={К\bibinitperiod},
+           given={Г.В.},
+           giveni={Г\bibinitperiod}}}%
+        {{hash=0551a0ab8924793d7aef07755ee808be}{%
+           family={Шеремет},
+           familyi={Ш\bibinitperiod},
+           given={М.А.},
+           giveni={М\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {russian}%
+      }
+      \list{location}{1}{%
+        {Томск}%
+      }
+      \list{publisher}{1}{%
+        {Издательство Томского политехнического университета}%
+      }
+      \strng{namehash}{c14510b716a9bf1015e78205241c7124}
+      \strng{fullhash}{c14510b716a9bf1015e78205241c7124}
+      \strng{authornamehash}{c14510b716a9bf1015e78205241c7124}
+      \strng{authorfullhash}{c14510b716a9bf1015e78205241c7124}
+      \field{sortinit}{5}
+      \field{sortinithash}{c9df3c9fb8f555dd9201cedc5e343021}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{pagetotal}{172}
+      \field{title}{Разностные методы решения задач теплопроводности}
+      \field{year}{2007}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
