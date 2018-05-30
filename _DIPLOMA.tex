@@ -55,6 +55,41 @@
 \end{figure}
 }
 
+\usepackage{etoolbox}
+
+\newcounter{totfigures}
+\newcounter{tottables}
+\newcounter{totpages}
+
+\providecommand\totfig{}
+\providecommand\tottab{}
+\providecommand\totpage{}
+
+\makeatletter
+\AtEndDocument{
+  \addtocounter{totfigures}{\value{figure}}
+  \addtocounter{totfigures}{-1}
+  
+  \addtocounter{tottables}{\value{table}}
+  \addtocounter{tottables}{-1}
+  
+  \addtocounter{totpages}{\value{page}}
+  \addtocounter{totpages}{-1}
+  
+  \immediate\write\@mainaux{
+    \string\gdef\string\totfig{\number\value{totfigures}}
+    \string\gdef\string\tottab{\number\value{tottables}}
+    \string\gdef\string\totpage{\number\value{totpages}}
+  }
+}
+\makeatother
+
+\usepackage{totcount}
+\newtotcounter{citnum} %From the package documentation
+\def\oldbibitem{} \let\oldbibitem=\cite
+\def\cite{\stepcounter{citnum}\oldbibitem}
+
+
 
 \addbibresource{Bibliography/references.bib} % библиографическая база данных
 
@@ -64,58 +99,58 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\include{title_software}  % если есть программа
+%\include{title_software}  % если есть программа
 %\include{title_no_software} % если нет программы
 
 %----------------------------------------------------------------------------------------
 %	TASK
 %----------------------------------------------------------------------------------------
 
-\include{task}
+%\include{task}
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\include{abstract}
+%\include{abstract}
 
 %----------------------------------------------------------------------------------------
 %	CONTENTS
 %----------------------------------------------------------------------------------------
 
-\include{contents}
+%\include{contents}
 
 %----------------------------------------------------------------------------------------
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\include{introduction}
+%\include{introduction}
 
 %----------------------------------------------------------------------------------------
 %	MAIN PART
 %----------------------------------------------------------------------------------------
 
-\include{work1}
-\include{work2}
+%\include{work1}
+%\include{work2}
 \include{work3}
-\include{work4}
+%\include{work4}
 
 %----------------------------------------------------------------------------------------
 %	CONCLUSION
 %----------------------------------------------------------------------------------------
 
-\include{conclusion}
+%\include{conclusion}
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-\include{bibl}
+%\include{bibl}
 
 %----------------------------------------------------------------------------------------
 %	APPENDIX
 %----------------------------------------------------------------------------------------
 
-\include{appendix}
+%\include{appendix}
 
 \end{document} 
